@@ -1,3 +1,4 @@
+# @Refactor: find better way of getting functions
 from time import sleep
 from pull import pull
 from send import send
@@ -16,7 +17,7 @@ rose = []
 
 while True:
 
-    print("-- PULLING --")
+    print("==> PULLING")
     posts = pull('frugalmalefashion')
 
     if posts:
@@ -26,21 +27,21 @@ while True:
             if post.id not in rose:
                 rising.append(post)
 
-        print("-- PARSING {} MESSAGES --".format(len(rising)))
+        print("==> PARSING {} MESSAGES".format(len(rising)))
         hits = parse(rising)
         rose = posts
 
         if hits:
-            print("-- SENDING --")
+            print("==> SENDING")
             send(hits)
         else:
-            print("-- NO HITS --")
+            print(" -> NO HITS")
 
     else:
-        print("-- EMPTY --")
+        print(" -> EMPTY")
 
     interval = settings['interval']
-    print("-- SLEEPING FOR {}s --".format(interval))
+    print("==> SLEEPING FOR {}s".format(interval))
     sleep(interval)
 
     settings = update_settings('settings.json')
