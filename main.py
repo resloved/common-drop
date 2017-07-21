@@ -1,24 +1,46 @@
-# use praw(?)
-# pull all posts off frugalmalefashion
-# find key words on posts
+from time import sleep
+from pull import pull
+from send import send
+from parse import parse
 
-import praw, json
-
-with open('secret.json') as data_file:
-    secret = json.load(data_file)
-
-client_id     = secret['client_id']
-client_secret = secret['client_secret']
-
-reddit = praw.Reddit(client_id=client_id,
-                     client_secret=client_secret,
-                     redirect_uri='http://localhost:8080',
-                     user_agent='Common by /u/resloves')
-
-for sub in reddit.subreddit('all-frugalmalefashion').new():
-    print(sub)
-
-#posts = reddit.get_subreddit('f
-#print(reddit.auth.url(['identity'], '...', 'permanent'))
+import json
 
 
+def update_settings(location):
+    with open(location) as data_file:
+        return json.load(data_file)
+
+settings = update_settings('settings.json')
+
+rose = []
+
+while True:
+
+    print("-- PULLING --")
+    posts = pull('frugalmalefashion')
+
+    if posts:
+
+        rising = []
+        for post in posts:
+            if post.id not in rose:
+                rising.append(post)
+
+        print("-- PARSING {} MESSAGES --".format(len(rising)))
+        hits = parse(rising)
+        rose = posts
+
+        if hits:
+            print("-- SENDING --")
+            send(hits)
+        else:
+            print("-- NO HITS --")
+
+    else:
+        print("-- EMPTY --")
+
+    interval = settings['interval']
+    print("-- SLEEPING FOR {}s --".format(interval))
+    sleep(interval)
+
+    settings = update_settings('settings.json')

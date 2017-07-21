@@ -16,6 +16,6 @@ def pull(subreddit):
     posts = []
 
     for post in reddit.subreddit(subreddit).rising():
-        posts.append([post.title, post.selftext, post.shortlink])
+        posts.append(post)
 
     return posts

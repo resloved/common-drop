@@ -11,7 +11,7 @@ def send(links):
 
     content = '\n'.join(links)
 
-    mail = smtplib.SMTP ("smtp.gmail.com", 587)
+    mail = smtplib.SMTP ('smtp.gmail.com', 587)
     mail.ehlo()
     mail.starttls()
 
