@@ -17,7 +17,7 @@ rose = []
 while True:
 
     print("==> PULLING")
-    posts = pull('leagueoflegends')
+    posts = pull('frugalmalefashion')
 
     if posts:
 
