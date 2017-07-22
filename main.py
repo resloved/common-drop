@@ -1,9 +1,8 @@
 # @Refactor: find better way of getting functions
-from time import sleep
+from time import sleep, time
 from pull import pull
 from send import send
 from parse import parse
-
 import json
 
 
@@ -18,7 +17,7 @@ rose = []
 while True:
 
     print("==> PULLING")
-    posts = pull('frugalmalefashion')
+    posts = pull('leagueoflegends')
 
     if posts:
 

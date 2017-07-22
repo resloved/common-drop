@@ -1,0 +1,7 @@
+<h1>New rising posts from r/frugalmalefashion!</h1>
+<h3>Posts of interest</h3>
+{% for post in posts %}
+<div class="post">
+    <a href={{ post.shortlink }}>{{ post.title }}</a>
+</div>
+{% endfor %}

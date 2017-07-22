@@ -1,36 +1,35 @@
-import smtplib, json
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from emails.template import JinjaTemplate as T
+import emails
+import json
 
-def send(links):
+# [Change secrets to be opened in main and then pass to each]
+with open('secret.json') as data_file:
+    secret = json.load(data_file)
 
-    # [Change secrets to be opened in main and then pass to each]
-    with open('secret.json') as data_file:
-        secret = json.load(data_file)
+MAIL_USERNAME = secret['email_user']
+MAIL_PASSWORD = secret['email_pass']
 
-    username = secret['email_user']
-    password = secret['email_pass']
+# [might add to config]
+MAIL_SERVER  = 'smtp.googlemail.com'
+MAIL_PORT    = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
 
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Rising Posts"
-    msg['From'] = username
-    msg['To'] = username
+ADMINS = secret['admins']
 
-    text = "New rising links:\n"
-    print("  * LINKS")
-    for link in links:
-        print(link)
-        text += link + "\n"
+def send(posts):
 
-    msg.attach(MIMEText(text, 'plain'))
+    message = emails.html(text="BODY OF MSG",
+                          html=T(open('templates/rising.html').read()),
+                          subject='New deals found on r/frugalmalefashion!',
+                          mail_from=('B', MAIL_USERNAME))
 
-    mail = smtplib.SMTP ('smtp.gmail.com', 587)
-    mail.ehlo()
-    mail.starttls()
+    response = message.send(to=ADMINS,
+                            render={"posts":    posts},
+                            smtp=  {"host":    MAIL_SERVER,
+                                    "port":    MAIL_PORT,
+                                    "user":    MAIL_USERNAME,
+                                    "password":MAIL_PASSWORD,
+                                    "ssl":     MAIL_USE_SSL})
 
-    mail.login(username, password)
-
-    # @Scale: Loop through DB
-    mail.sendmail (username, username, msg.as_string())
-
-    mail.close()
+    return response
