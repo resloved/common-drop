@@ -14,6 +14,8 @@ settings = update_settings('settings.json')
 
 rose = []
 
+total = 0
+
 while True:
 
     print("==> PULLING")
@@ -40,7 +42,8 @@ while True:
         print(" -> EMPTY")
 
     interval = settings['interval']
-    print("==> SLEEPING FOR {}s".format(interval))
+    total += interval
+    print("==> SLEEPING FOR {}s. TOTAL OF {}s".format(interval, total))
     sleep(interval)
 
     settings = update_settings('settings.json')

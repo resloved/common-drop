@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    * {
+        color: #666666;
+    }
+    #header {
+        display: block;
+        border-bottom: 1px solid #BEBEBE;
+    }
+    .bold {
+        font-weight: bold;
+    }
+    .thin {
+        font-weight: lighter;
+    }
+    .line {
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 10px 15px 10px 15px;
+        margin: 10px 0px 10px 0px;
+        border-bottom: 1px solid #BEBEBE;
+        overflow: hidden;
+    }
+    .line img {
+        border-radius: 5px;
+        margin-right: 20px;
+        float: left;
+        object-fit: cover;
+        height: 55px;
+        width: 55px;
+    }
+    a {
+        text-decoration: none;
+    }
+    #footer {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 14px;
+    }
+    body {
+        background: #F9F9F9;
+        padding: 0;
+        margin: 20px;
+    }
+    </style>
+</head>
+<body>
+<div id="header">
+    <a href=""> COMMON-PULL</a>
+    <p class="thin"></p>
+    <p class="thin">{{ posts|length }} of interest @ {{ time }}</p>
+</div>
+{% for post in posts %}
+<div class="line">
+    {% if post.thumbnail != "self" %}
+    <img src="{{ post.thumbnail }}" alt="thumbnail">
+    {% else %}
+    <img src="/static/images/self.png" alt="self-thumbnail">
+    {% endif %}
+    <a href="{{ post.shortlink }}">{{ post.title }}</a>
+    <p class="thin">
+        Submited at <i>{{ post.created_utc }}</i> by 
+        <a href="https://reddit.com/u/{{ post.author }}"><b>{{ post.author }}</b></a>
+    </p>
+</div>
+{% endfor %}
+<div id="footer" class="thin">
+    <p> Feedback -  Unsubscribe</p>
+</div>
+</body>
+<script src='http://127.0.0.1:9001/js/socket.js'></script>
+</html>

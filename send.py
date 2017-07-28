@@ -1,6 +1,7 @@
 from emails.template import JinjaTemplate as T
 import emails
 import json
+import time
 
 # [Change secrets to be opened in main and then pass to each]
 with open('secret.json') as data_file:
@@ -20,12 +21,15 @@ ADMINS = secret['admins']
 def send(posts):
 
     message = emails.html(text="BODY OF MSG",
-                          html=T(open('templates/rising.html').read()),
+                          html=T(open('templates/common.html').read()),
                           subject='New deals found on r/frugalmalefashion!',
-                          mail_from=('B', MAIL_USERNAME))
+                          mail_from=('COMMON', MAIL_USERNAME))
 
+    current = time.strftime("%Y-%m-%d / %H:%M:%S", time.gmtime())
+    created_at = 0
     response = message.send(to=ADMINS,
-                            render={"posts":    posts},
+                            render={"posts":   posts,
+                                    "time":    current},
                             smtp=  {"host":    MAIL_SERVER,
                                     "port":    MAIL_PORT,
                                     "user":    MAIL_USERNAME,
