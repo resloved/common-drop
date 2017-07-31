@@ -25,8 +25,13 @@ def send(posts):
                           subject='New deals found on r/frugalmalefashion!',
                           mail_from=('COMMON', MAIL_USERNAME))
 
+    # @Hack: adding attribute for created at format, should probably instead
+    #        find way to do it in template
+    # Change to map at least
+    for post in posts:
+        post.created_formatted = time.strftime("%H:%M", time.gmtime(post.created))
+
     current = time.strftime("%Y-%m-%d / %H:%M:%S", time.gmtime())
-    created_at = 0
     response = message.send(to=ADMINS,
                             render={"posts":   posts,
                                     "time":    current},
