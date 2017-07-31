@@ -33,13 +33,16 @@
         height: 55px;
         width: 55px;
     }
+    .item p {
+        font-size: 12px;
+    }
     a {
         text-decoration: none;
     }
     #footer {
         text-align: center;
         margin-top: 30px;
-        font-size: 14px;
+        font-size: 12px;
     }
     body {
         background: #F9F9F9;
@@ -65,7 +68,7 @@
     </a>
     <a href="{{ post.shortlink }}">{{ post.title }}</a>
     <p class="thin">
-        Submited <i>{{ post.created_formatted }} minutes ago </i> by
+        Submited <i>{{ post.created_formatted }} min(s)</i> ago by
         <a href="https://reddit.com/u/{{ post.author }}"><b>{{ post.author }}</b></a>
     </p>
 </div>

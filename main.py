@@ -6,44 +6,42 @@ from parse import parse
 import json
 
 
-def update_settings(location):
+# @Refactor: Could have as one function or seperate files that handle each
+#            aspect. Terms in particular should be with users
+def terms(location):
+    return []
+    return ['common projects', 'cp', 'cps']
+
+def settings(location):
     with open(location) as data_file:
         return json.load(data_file)
 
-settings = update_settings('settings.json')
+TERMS_LOCATION = 'terms.json'
+SETTINGS_LOCATION = 'settings.json'
 
 rose = []
-
 total = 0
 
 while True:
 
-    print("==> PULLING")
+    settings = settings(SETTINGS_LOCATION)
     posts = pull('frugalmalefashion')
-
     if posts:
-
+        # @Refactor: Move to seperate file/function that deals with old posts
         rising = []
         for post in posts:
             if post.id not in rose:
                 rising.append(post)
-
-        print("==> PARSING {} MESSAGES".format(len(rising)))
-        hits = parse(rising, ['common projects', 'cps', 'cp'])
         rose = posts
 
-        if hits:
-            print("==> SENDING")
-            send(hits)
-        else:
-            print(" -> NO HITS")
+        # Later parsing will be based on user choice so it will probably be
+        # during email process
+        hits = parse(rising, terms(TERMS_LOCATION))
 
-    else:
-        print(" -> EMPTY")
+        if hits:
+            send(hits)
 
     interval = settings['interval']
     total += interval
     print("==> SLEEPING FOR {}s. TOTAL OF {}s".format(interval, total))
     sleep(interval)
-
-    settings = update_settings('settings.json')

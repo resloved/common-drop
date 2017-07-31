@@ -2,6 +2,8 @@ import praw, json
 
 def pull(subreddit):
 
+    print("==> PULLING")
+
     with open('secret.json') as data_file:
         secret = json.load(data_file)
 
@@ -17,5 +19,10 @@ def pull(subreddit):
 
     for post in reddit.subreddit(subreddit).rising():
         posts.append(post)
+
+    if posts:
+        print(" -> PULLED {} POSTS".format(len(posts)))
+    else:
+        print(" -> EMPTY")
 
     return posts
