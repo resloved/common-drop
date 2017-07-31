@@ -10,7 +10,6 @@ import json
 #            aspect. Terms in particular should be with users
 def terms(location):
     return []
-    return ['common projects', 'cp', 'cps']
 
 def settings(location):
     with open(location) as data_file:
@@ -26,22 +25,15 @@ while True:
 
     settings = settings(SETTINGS_LOCATION)
     posts = pull('frugalmalefashion')
-    if posts:
-        # @Refactor: Move to seperate file/function that deals with old posts
-        rising = []
-        for post in posts:
-            if post.id not in rose:
-                rising.append(post)
-        rose = posts
 
+    if posts:
         # Later parsing will be based on user choice so it will probably be
         # during email process
-        hits = parse(rising, terms(TERMS_LOCATION))
-
+        hits = parse(posts, terms(TERMS_LOCATION))
         if hits:
             send(hits)
 
     interval = settings['interval']
-    total += interval
     print("==> SLEEPING FOR {}s. TOTAL OF {}s".format(interval, total))
     sleep(interval)
+    total += interval
