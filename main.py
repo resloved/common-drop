@@ -29,7 +29,7 @@ while True:
                 rising.append(post)
 
         print("==> PARSING {} MESSAGES".format(len(rising)))
-        hits = parse(rising)
+        hits = parse(rising, ['common projects', 'cps', 'cp'])
         rose = posts
 
         if hits:

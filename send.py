@@ -27,9 +27,9 @@ def send(posts):
 
     # @Hack: adding attribute for created at format, should probably instead
     #        find way to do it in template
-    # Change to map at least
     for post in posts:
-        post.created_formatted = time.strftime("%H:%M", time.gmtime(post.created))
+        ago = -time.time() - post.created
+        post.created_formatted = time.strftime("%M", time.gmtime(ago))
 
     current = time.strftime("%Y-%m-%d / %H:%M:%S", time.gmtime())
     response = message.send(to=ADMINS,
