@@ -5,6 +5,7 @@
 * DB for signup
     - https://firebase.google.com/docs/#gettingstarted
     - refactor parsing/terms with addition of DB
+* move terms to send
 * fix clock
 
 ### MINOR

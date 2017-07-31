@@ -24,31 +24,33 @@ def pull(subreddit):
 
     if posts:
         print(" -> PULLED {} POSTS".format(len(posts)))
-
-        # @Hack: Everything is terrible. Something wrong with reading json if
-        #        its both read and write.
-        old_ids = []
-
-        # Remove old posts and update json
-        with open(ID_LOCATION, 'r') as f:
-            old = json.load(f)
-            old_ids = old['ids']
-
-        tmp = []
-        data = {}
-        data['ids'] = []
-
-        with open(ID_LOCATION, 'w') as f:
-            # @Refactor: probably a way using sets to find difference
-            for post in posts:
-                data['ids'].append(post.id)
-                if post.id not in old_ids:
-                    tmp.append(post)
-            json.dump(data, f)
-            posts = tmp
-
+        posts = clear_old(posts)
         print(" -> {} NEW POSTS".format(len(posts)))
     else:
         print(" -> EMPTY")
 
     return posts
+
+def clear_old(posts):
+    # @Hack: Everything is terrible. Something wrong with reading json if
+    #        its both read and write.
+    old_ids = []
+
+    # Remove old posts and update json
+    with open(ID_LOCATION, 'r') as f:
+        old = json.load(f)
+        old_ids = old['ids']
+
+    tmp = []
+    data = {}
+    data['ids'] = []
+
+    with open(ID_LOCATION, 'w') as f:
+        # @Refactor: probably a way using sets to find difference
+        for post in posts:
+            data['ids'].append(post.id)
+            if post.id not in old_ids:
+                tmp.append(post)
+        json.dump(data, f)
+
+    return tmp
