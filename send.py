@@ -30,8 +30,7 @@ def send(posts):
     # @Hack: adding attribute for created at format, should probably instead
     #        find way to do it in template
     for post in posts:
-        # @Hack: something off with clock
-        ago = time.time() - post.created_utc + 25220
+        ago = time.time() - post.created_utc
         post.created_formatted = time.strftime("%M", time.gmtime(ago))
 
     counter = 0;
