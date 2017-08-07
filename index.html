@@ -4,13 +4,27 @@
     <link rel="stylesheet" href="style.css">
 <head>
 <body>
-    <div class="center">
-        <form action="https://getsimpleform.com/messages?form_api_token=4fab3cb7d65145a942107cd49e33c4e3" method="post">
-            <p>Name: <input type='text' name='Name' /></p>
-            <p>Email: <input type='text' name='Email' /></p>
-            <p>Term: <input type='text' name='Term' /></p>
-            <input type='submit' value='Submit' />
-        </form>
+<div id="header">
+    <div class="left">
+        <a class="left" href=""> COMMON-PULL</a>
+        <p class="thin">words words words</p>
     </div>
+    <div class="right">
+        <p class="right thin">DATE // TIME</p>
+    </div>
+</div>
+<div id="content">
+    <form class="center" action="https://getsimpleform.com/messages?form_api_token=4fab3cb7d65145a942107cd49e33c4e3" method="post">
+        <p><input type='text' name='Name' placeholder=" Name"/></p>
+        <p><input type='text' name='Email' placeholder=" example@mail.com"/></p>
+        <p><input type='text' name='Term' placeholder=" Common Projects"/></p>
+        <input type='submit' value='Submit' />
+        <input type='submit' value='Reset' />
+    </form>
+</div>
+<div id="footer">
+    <p class="thin"> Feedback -  Unsubscribe</p>
+</div>
 </body>
+<script src='http://127.0.0.1:9001/js/socket.js'></script>
 </html>
