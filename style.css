@@ -1,22 +1,25 @@
 body {
     background: #F2F2F2;
     color: #666666;
+    margin: 0;
     padding: 0;
 }
 
 #header {
-    margin: 40px;
-    border-bottom: 1px solid #BEBEBE;
-    overflow: auto;
+    margin: 20px 0 0 40px;
 }
 
-#header a {
+#header .icon {
+    font-size: 5em;
+    color: #666666;
+    display: inline;
+    vertical-align: top;
     text-decoration: none;
+    padding-bottom: 10px;
 }
 
-#header p {
-    font-size: .9em;
-    margin-top: 35px;
+#content {
+    background: blue;
 }
 
 .center {
@@ -40,6 +43,7 @@ body {
 form {
     height: 300px;
     width: 175px;
+    text-align: center;
 }
 
 form p {
@@ -63,12 +67,11 @@ form p {
 }
 
 input[type=submit] {
-    font-weight: bold;
-    width: 82px;
+    font-size: 1.25em;
     background: #FFFFFF;
     margin: 1px;
     padding: 14px;
-    color: #7A7A7A;
+    color: #888888;
     border: 1px solid #BEBEBE;
     border-bottom: 3px solid #BEBEBE;
 }
